@@ -27,15 +27,18 @@ app.use(
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 
-app.use("/api", apiLimiter);
+connectDB();
 
+app.get("/", (req, res) => {
+  res.json({ success: true, message: "Backend is running 🚀" });
+});
+
+app.use("/api", apiLimiter);
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/posts", postRoutes);
 app.use("/api/comments", commentRoutes);
 app.use("/api/notifications", notificationRoutes);
-
-connectDB();
 
 // app.listen(PORT, "0.0.0.0", () => {
 //   console.log(`Server running on port ${PORT}`);
