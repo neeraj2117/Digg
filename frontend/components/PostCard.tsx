@@ -247,7 +247,7 @@ const styles = StyleSheet.create({
     borderRadius: 14,
     paddingVertical: 8,
     paddingHorizontal: 11,
-    minHeight: 100, // Ensures consistency if titles are short
+    minHeight: 60, // Ensures consistency if titles are short
   },
 
   topRow: {
@@ -279,7 +279,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginTop: 7,
+    marginTop: 10,
   },
 
   tag: {
