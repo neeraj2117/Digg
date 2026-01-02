@@ -128,19 +128,28 @@ export default function PostDetails() {
   };
 
   // --- HANDLERS ---
-  const handleLike = async () => {
-    try {
-      await likePost(postId).unwrap();
-    } catch (err) {
-      console.log(err);
-    }
+  // const handleLike = async () => {
+  //   try {
+  //     await likePost(postId).unwrap();
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
+  // const handleDislike = async () => {
+  //   try {
+  //     await dislikePost(postId).unwrap();
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
+
+  // Inside PostDetails.tsx
+  const handleLike = () => {
+    likePost(postId); // Instant UI update triggered via onQueryStarted
   };
-  const handleDislike = async () => {
-    try {
-      await dislikePost(postId).unwrap();
-    } catch (err) {
-      console.log(err);
-    }
+
+  const handleDislike = () => {
+    dislikePost(postId); // Instant UI update triggered via onQueryStarted
   };
 
   const handleSendComment = async () => {
@@ -177,7 +186,11 @@ export default function PostDetails() {
       <View key={item._id} style={styles.commentContainer}>
         <View style={styles.commentCard}>
           <Image
-            source={{ uri: item.user?.profilePic }}
+            source={
+              item.user?.profilePic
+                ? { uri: item.user.profilePic }
+                : require("../assets/images/profile.png")
+            }
             style={isReply ? styles.replyAvatar : styles.commentAvatar}
           />
           <View style={{ flex: 1 }}>
@@ -199,7 +212,7 @@ export default function PostDetails() {
             <View style={styles.commentActionsRow}>
               <TouchableOpacity
                 style={styles.commentActionBtn}
-                onPress={() => likeComment(item._id)}
+                onPress={() => likeComment(item._id)} // Just call it directly
               >
                 <Ionicons
                   name={commentLiked ? "heart" : "heart-outline"}
