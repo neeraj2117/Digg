@@ -3,7 +3,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { router } from "expo-router";
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: "http://192.168.1.107:3001/api",
+  baseUrl: "https://diggg-it.vercel.app/api",
   prepareHeaders: async (headers) => {
     const token = await AsyncStorage.getItem("token");
 

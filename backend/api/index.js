@@ -27,18 +27,31 @@ app.use(
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 
-connectDB();
+app.use(async (req, res, next) => {
+  try {
+    await connectDB();
+    next();
+  } catch (error) {
+    res.status(500).json({ success: false, message: "Database connection failed" });
+  }
+});
 
 app.get("/", (req, res) => {
   res.json({ success: true, message: "Backend is running 🚀" });
 });
 
 app.use("/api", apiLimiter);
-app.use("/api/auth", authRoutes);
-app.use("/api/users", userRoutes);
-app.use("/api/posts", postRoutes);
-app.use("/api/comments", commentRoutes);
-app.use("/api/notifications", notificationRoutes);
+// app.use("/api/auth", authRoutes);
+// app.use("/api/users", userRoutes);
+// app.use("/api/posts", postRoutes);
+// app.use("/api/comments", commentRoutes);
+// app.use("/api/notifications", notificationRoutes);
+
+app.use("/auth", authRoutes);
+app.use("/users", userRoutes);
+app.use("/posts", postRoutes);
+app.use("/comments", commentRoutes);
+app.use("/notifications", notificationRoutes);
 
 // app.listen(PORT, "0.0.0.0", () => {
 //   console.log(`Server running on port ${PORT}`);
