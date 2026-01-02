@@ -3,7 +3,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { router } from "expo-router";
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: "https://diggg-it.vercel.app/api",
+  // baseUrl: "https://diggg-it.vercel.app/api",
+  baseUrl: "https://diggg-it.vercel.app",
   prepareHeaders: async (headers) => {
     const token = await AsyncStorage.getItem("token");
 
@@ -15,7 +16,7 @@ const baseQuery = fetchBaseQuery({
   },
 });
 
-// ✅ Intercept 401 errors
+// Intercept 401 errors
 const baseQueryWithAuth = async (args: any, api: any, extraOptions: any) => {
   const result = await baseQuery(args, api, extraOptions);
 
